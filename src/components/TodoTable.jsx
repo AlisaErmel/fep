@@ -5,17 +5,18 @@ function TodoTable({ todos, handleDelete }) {
         <table>
             <thead>
                 <tr>
-                    <th>Due Date</th>
                     <th>Description</th>
-                    <th>Delete</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
                 </tr>
             </thead>
             <tbody>
                 {
                     todos.map((todo, index) => (
                         <tr key={index}>
-                            <td>{todo.duedate}</td>
                             <td>{todo.description}</td>
+                            <td>{todo.duedate}</td>
+                            <td>{todo.priority}</td>
                             <td>
                                 <button onClick={() => handleDelete(index)}>Delete</button>
                             </td>

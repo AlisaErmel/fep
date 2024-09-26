@@ -9,12 +9,12 @@ function Todolist() {
     const gridRef = useRef();
 
     const columns = [
-        { field: "description", sortable: true, filter: true, editable: true },
+        { field: "description", sortable: true, filter: true, floatingFilter: true, editable: true },
         {
-            field: "priority", sortable: true, filter: true, editable: true,
+            field: "priority", sortable: true, filter: true, floatingFilter: true, editable: true,
             cellStyle: params => params.value === "High" ? { color: 'red' } : { color: 'black' }
         },
-        { field: "duedate", sortable: true, filter: true, editable: true }
+        { field: "duedate", sortable: true, filter: true, floatingFilter: true, editable: true }
     ];
 
 

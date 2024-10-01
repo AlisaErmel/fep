@@ -6,6 +6,11 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 
 function Todolist() {
     const [todo, setTodo] = useState({ description: "", duedate: "", priority: "" });
@@ -42,6 +47,12 @@ function Todolist() {
         }
     };
 
+    const handleDateChange = (date) => {
+        if (date) {
+            setTodo({ ...todo, duedate: dayjs(date).toISOString().substring(0, 10) });
+        }
+    };
+
 
 
     return (
@@ -54,23 +65,25 @@ function Todolist() {
                 mt={2}
             >
                 <TextField
-                    variant='standard'
+                    variant='outlined'
                     label='Description'
                     value={todo.description}
                     onChange={event => setTodo({ ...todo, description: event.target.value })}
                 />
                 <TextField
-                    variant='standard'
+                    variant='outlined'
                     label='Priority'
                     value={todo.priority}
                     onChange={event => setTodo({ ...todo, priority: event.target.value })}
                 />
-                <TextField
-                    variant='standard'
-                    label="Date"
-                    value={todo.duedate}
-                    onChange={event => setTodo({ ...todo, duedate: event.target.value })}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        label="Due Date"
+                        value={todo.duedate ? dayjs(todo.duedate) : null}
+                        onChange={handleDateChange}
+                        renderInput={(params) => <TextField variant='standard' {...params} />}
+                    />
+                </LocalizationProvider>
                 <Button
                     variant="contained"
                     onClick={handleAdd}>

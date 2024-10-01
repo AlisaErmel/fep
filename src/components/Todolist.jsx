@@ -1,7 +1,11 @@
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { useRef, useState } from 'react'
+import { useRef, useState } from 'react';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
 function Todolist() {
     const [todo, setTodo] = useState({ description: "", duedate: "", priority: "" });
@@ -42,24 +46,44 @@ function Todolist() {
 
     return (
         <>
-            <h3>My Todos</h3>
-            <input
-                placeholder='Description'
-                value={todo.description}
-                onChange={event => setTodo({ ...todo, description: event.target.value })}
-            />
-            <input
-                placeholder='Priority'
-                value={todo.priority}
-                onChange={event => setTodo({ ...todo, priority: event.target.value })}
-            />
-            <input
-                type="date"
-                value={todo.duedate}
-                onChange={event => setTodo({ ...todo, duedate: event.target.value })}
-            />
-            <button onClick={handleAdd}>Add</button>
-            <button onClick={handleDelete}>Delete</button>
+            <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                justifyContent="center"
+                mt={2}
+            >
+                <TextField
+                    variant='standard'
+                    label='Description'
+                    value={todo.description}
+                    onChange={event => setTodo({ ...todo, description: event.target.value })}
+                />
+                <TextField
+                    variant='standard'
+                    label='Priority'
+                    value={todo.priority}
+                    onChange={event => setTodo({ ...todo, priority: event.target.value })}
+                />
+                <TextField
+                    variant='standard'
+                    label="Date"
+                    value={todo.duedate}
+                    onChange={event => setTodo({ ...todo, duedate: event.target.value })}
+                />
+                <Button
+                    variant="contained"
+                    onClick={handleAdd}>
+                    Add
+                </Button>
+                <Button
+                    variant="contained"
+                    color="error"
+                    endIcon={<DeleteIcon />}
+                    onClick={handleDelete}>
+                    Delete
+                </Button>
+            </Stack>
             <div
                 className='ag-theme-material'
                 style={{ height: 500, width: '100%' }}
